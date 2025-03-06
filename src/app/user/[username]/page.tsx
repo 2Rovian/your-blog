@@ -7,6 +7,7 @@ import Link from 'next/link'
 
 import LoadingComponent from './LoadingComponent'
 import NotFoundUser from './NotFoundComponent'
+import NotPostedYet from './NotPostedYet'
 
 interface User {
   username: string
@@ -73,7 +74,7 @@ export default function UserProfilePage() {
 
       <div className="lg:col-span-6 lg:my-5">
         {user.posts?.length == 0 ?
-          <p>Usuário não tem posts feitos.</p>
+          <NotPostedYet username={user.username}/>
           :
           user.posts?.map((post, index) => (
             <div key={index}>

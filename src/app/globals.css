@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body{
+  @apply transition-colors duration-300 font-serif;
+}
+
+.responsividade{
+  @apply max-w-[1280px] mx-auto;
+};
+
+.main-div{
+  @apply bg-white text-black dark:bg-black dark:text-white transition-colors duration-300 border-x border-b border-gray-300 dark:border-gray-700 px-4;
+}
+
+.input-loginPage{
+  @apply pl-1 py-1 rounded-sm outline-gray-400 outline outline-1 focus:outline-black duration-300 ease-in-out dark:outline-gray-500 dark:focus:outline-white dark:bg-black focus:shadow-md
+}
+
+.div-input-loginPage {
+  @apply py-0 rounded-sm outline-gray-400 outline outline-1 duration-300 ease-in-out dark:outline-gray-500 dark:bg-black flex items-center;
+}
+
+/* Aplica o efeito quando um elemento interno estiver focado */
+.div-input-loginPage:focus-within {
+  @apply outline-black shadow-md dark:outline-white;
+}

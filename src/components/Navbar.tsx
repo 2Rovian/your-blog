@@ -28,24 +28,6 @@ export default function Navbar() {
                     </span>)
                 }
 
-
-                {/* <div className="flex gap-x-3 text-lg font-medium ">
-                    <span>
-                        <Link href='/'>Home</Link>
-                    </span>
-                    <span>
-                        <Link href='/profile'>Profile</Link>
-                    </span>
-                    {user ?
-                        (<span onClick={logout} className="cursor-pointer">
-                            Logout
-                        </span>) :
-                        (<span>
-                            <Link href='/login' className="bg-black text-white dark:bg-white dark:text-black px-2 py-1 rounded-md">Register/Login</Link>
-                        </span>)
-                    }
-                    
-                </div> */}
             </div>
         </div>
     )

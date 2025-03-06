@@ -17,7 +17,7 @@ export default function Navbar() {
                 <span className="text-xl font-semibold"><Link href='/'>YourBlog</Link></span>
 
                 {isLoading ? (
-                    <span>Carregando...</span>
+                    <div></div>
                 ) : user ? (
                     <div className="flex gap-x-3 text-lg font-medium">
                         <span><Link href='/'>Home</Link></span>

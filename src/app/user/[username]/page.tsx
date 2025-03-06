@@ -5,6 +5,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser } from '@fortawesome/free-solid-svg-icons'
 import Link from 'next/link'
 
+import LoadingComponent from './LoadingComponent'
+import NotFoundUser from './NotFoundComponent'
+
 interface User {
   username: string
   bio?: string
@@ -24,7 +27,7 @@ export default function UserProfilePage() {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await fetch(`/api/users/${username}`) // Requisição à API
+        const response = await fetch(`/api/users/${ username }`) // Requisição à API
         if (!response.ok) {
           setError(true)
           return
@@ -42,14 +45,12 @@ export default function UserProfilePage() {
   }, [username])
 
   if (loading) {
-    return <div>Carregando...</div> // Exibe um loading enquanto os dados são buscados
+    return <LoadingComponent /> 
   }
 
   if (error || !user) {
     return (
-      <div>
-        <p>Usuário não encontrado :/</p>
-      </div>
+      <NotFoundUser />
     )
   }
 
@@ -69,15 +70,6 @@ export default function UserProfilePage() {
           </button>
         </div>
       </div>
-
-      {/* <div className="lg:col-span-6 lg:my-5">
-        {user.posts?.map((post, index) => (
-          <div key={index}>
-            <h2 className='font-semibold'>{post.title}</h2>
-            <h3>{post.content}</h3>
-          </div>
-        ))}
-      </div> */}
 
       <div className="lg:col-span-6 lg:my-5">
         {user.posts?.length == 0 ?

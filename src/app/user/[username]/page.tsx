@@ -67,7 +67,7 @@ export default function UserProfilePage() {
           <span>{user.bio || 'Brief Description'}</span>
           <span>Posts Made: {user.postCount || 0}</span>
           <button className='bg-gray-900 dark:bg-white dark:text-black rounded-sm text-white py-1 self-start lg:self-center my-2 px-8'>
-            <Link href='create-post'>Create Post</Link>
+            <Link href={`/user/${user.username}/submit`}>Create Post</Link>
           </button>
         </div>
       </div>

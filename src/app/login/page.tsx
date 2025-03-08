@@ -22,14 +22,14 @@ export default function LoginFunc() {
         e.preventDefault();
 
         // Regex para validar o username
-        const usernameRegex = /^(?!.*\.\.)(?!.*__)(?!.*\.$)(?!.*_$)[a-zA-Z0-9._]{6,20}$/;
+        const usernameRegex = /^(?!.*\.\.)(?!.*__)(?!.*\.$)(?!.*_$)[a-zA-Z0-9._]{6,10}$/;
 
         // Regex para validar a senha
         const passwordRegex = /^[\w@$!%*?&]{6,30}$/;
 
         // Validação do username
         if (!usernameRegex.test(username)) {
-            alert("O nome de usuário deve ter entre 3 e 20 caracteres e pode conter apenas letras, números, '.' e '_'.");
+            alert("O nome de usuário deve ter entre 3 e 10 caracteres e pode conter apenas letras, números, '.' e '_'.");
             return;
         }
 

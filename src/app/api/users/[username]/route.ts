@@ -6,19 +6,20 @@ export async function GET(
   request: Request,
   { params }: { params: { username: string } }
 ) {
-  const { username } = params // Extrai o username da URL
+  const { username } = await params
 
   try {
     await connectDB()
 
-    // Busca o usuário e popula os posts
-    const user = await User.findOne({ username }) // se retirar ".populate('posts')", o código funciona
+    // Busca o usuário
+    const user = await User.findOne({ username })
     if (!user) {
       return NextResponse.json({ error: 'Usuário não encontrado' }, { status: 404 })
     }
 
     return NextResponse.json({ user })
   } catch (error) {
+    console.error('Erro ao buscar usuário:', error)
     return NextResponse.json({ error: 'Erro ao buscar usuário' }, { status: 500 })
   }
 }

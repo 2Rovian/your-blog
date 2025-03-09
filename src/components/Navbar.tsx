@@ -9,6 +9,9 @@ import { faUser, faMagnifyingGlass, faGear, faArrowRightFromBracket } from "@for
 import { IoIosCloseCircleOutline } from "react-icons/io";
 import { GoTriangleUp } from "react-icons/go";
 
+import { faMoon } from "@fortawesome/free-solid-svg-icons";
+import DarkMode from "./DarkMode";
+
 export default function Navbar() {
     const { user, logout } = useAuthStore();
     const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -103,7 +106,7 @@ export default function Navbar() {
                             <div ref={dropdownRef} className="h-fit w-full bg-white dark:bg-gray-900  absolute top-[47px] outline outline-1 outline-gray-400 dark:outline-gray-700 shadow-gray-600 dark:shadow-gray-700 shadow-md rounded-lg flex flex-col overflow-hidden">
                                 {users.map((user) => (
                                     <div
-                                        key={user._id} 
+                                        key={user._id}
                                         className="w-full h-[40px] cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800"
                                         onClick={() => { setInputValue(''); setIsFocused(false) }}
                                     >
@@ -146,12 +149,14 @@ export default function Navbar() {
                                             </li>
                                         </Link>
 
-                                        <Link href={'/'} className="mx-2">
+                                        <Link href={'/config/'} className="mx-2">
                                             <li className="px-3 gap-x-2 flex items-center hover:bg-white hover:text-gray-900 dark:hover:bg-black dark:hover:text-white hover:rounded-sm ease-in-out duration-150 cursor-pointer">
                                                 <FontAwesomeIcon icon={faGear} className="size-[20px]" />
                                                 <span>Config</span>
                                             </li>
                                         </Link>
+
+                                        <DarkMode />
 
                                         <li className="mx-2 px-3 gap-x-2 flex items-center hover:bg-white hover:text-gray-900 dark:hover:bg-black dark:hover:text-white hover:rounded-sm ease-in-out duration-150 cursor-pointer"
                                             onClick={logout}

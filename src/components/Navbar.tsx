@@ -15,6 +15,8 @@ export default function Navbar() {
     const [isProfileMenuOpen, setIsProfileMenuOpen] = useState<boolean>(false);
     const [inputValue, setInputValue] = useState<string>('');
 
+    const [isFocused, setIsFocused] = useState<boolean>(false);
+
     useEffect(() => {
         setIsLoading(false);
     }, [user]);
@@ -39,7 +41,7 @@ export default function Navbar() {
     }, []);
 
     return (
-        <div className="h-[60px]">
+        <div className="h-[60px] fixed w-full mx-auto max-w-[1280px]">
             <div className="flex justify-between items-center size-full main-div border-b">
                 <span className="text-4xl font-bold"
                     style={{ fontFamily: "'Brandmark Sans 2 Color'" }}
@@ -47,21 +49,30 @@ export default function Navbar() {
                     <Link href='/'>WePost</Link>
                 </span>
 
-                {user && (<div className="bg-gray-900 sm:w-[60%] min-w-[250px] max-w-[600px] text-white rounded-3xl flex items-center">
+                {user && 
+                (<div className={`bg-gray-200 dark:bg-gray-900 sm:w-[60%] min-w-[250px] max-w-[600px] relative text-black dark:text-white rounded-3xl flex items-center ${isFocused ? 'outline outline-2 outline-blue-400' : ''}`}>
                     <span className="px-2 ml-1">
                         <FontAwesomeIcon icon={faMagnifyingGlass} />
                     </span>
                     <input type="text" placeholder="Search"
-                        className="py-2 grow bg-transparent outline-none"
+                        className="py-2 font-sans grow bg-transparent outline-none"
                         value={inputValue}
                         onChange={(e) => setInputValue(e.target.value)}
+                        onFocus={() => setIsFocused(true)}
+                        onBlur={() => setIsFocused(false)}
                     />
+
                     {inputValue && (
-                        <span className="p-1 mr-2 cursor-pointer rounded-full hover:bg-white/30 ease-in-out duration-300"
+                        <span className="p-1 mr-2 cursor-pointer rounded-full hover:bg-white/80 dark:hover:bg-white/30 ease-in-out duration-300"
                             onClick={() => setInputValue('')}
                         >
                             <IoIosCloseCircleOutline className="size-5" />
                         </span>
+                    )}
+                    {inputValue && (
+                        <div className="h-[300px] w-full bg-white outline outline-1 outline-black absolute top-[45px] shadow-2xl rounded-lg">
+                            dropdown
+                        </div>
                     )}
                 </div>)}
 

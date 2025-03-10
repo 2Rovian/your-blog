@@ -7,7 +7,7 @@ export async function DELETE(request: Request) {
   try {
     await connectDB();
 
-    // 🔹 Obtém e verifica o token JWT
+    // Obtém e verifica o token JWT
     const authHeader = request.headers.get("Authorization");
     if (!authHeader || !authHeader.startsWith("Bearer ")) {
       return NextResponse.json({ error: "Token não fornecido" }, { status: 401 });
@@ -22,13 +22,13 @@ export async function DELETE(request: Request) {
       return NextResponse.json({ error: "Token inválido ou expirado" }, { status: 401 });
     }
 
-    // 🔹 Verifica se o usuário existe
+    // Verifica se o usuário existe
     const user = await User.findById(decoded.id);
     if (!user) {
       return NextResponse.json({ error: "Usuário não encontrado" }, { status: 404 });
     }
 
-    // 🔹 Remove todos os posts do usuário
+    // Remove todos os posts do usuário
     user.posts = [];
     await user.save();
 

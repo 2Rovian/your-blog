@@ -3,6 +3,7 @@ import mongoose, { Schema, Document } from "mongoose";
 export interface IUser extends Document {
   username: string;
   password: string;
+  briefDescription: string;
   posts: Array<{
     title: string;
     content: string;
@@ -13,6 +14,7 @@ export interface IUser extends Document {
 const UserSchema = new Schema<IUser>({
   username: { type: String, required: true, unique: true },
   password: { type: String, required: true },
+  briefDescription: { type: String },
   posts: {
     type: [
       {

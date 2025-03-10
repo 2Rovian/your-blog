@@ -9,7 +9,6 @@ import { faUser, faMagnifyingGlass, faGear, faArrowRightFromBracket } from "@for
 import { IoIosCloseCircleOutline } from "react-icons/io";
 import { GoTriangleUp } from "react-icons/go";
 
-import { faMoon } from "@fortawesome/free-solid-svg-icons";
 import DarkMode from "./DarkMode";
 
 export default function Navbar() {

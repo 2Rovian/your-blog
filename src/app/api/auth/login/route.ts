@@ -21,11 +21,13 @@ export async function POST(req: Request) {
             return NextResponse.json({ error: "Senha incorreta" }, { status: 401 });
         }
 
+        console.log("Horário atual do servidor (UTC):", new Date().toUTCString());
+
         // Gera um token JWT
         const token = jwt.sign(
-            { id: user._id, username: user.username },
+            { id: user._id.toString(), username: user.username },
             process.env.JWT_SECRET as string,
-            { expiresIn: "1h" }
+            { expiresIn: "2h"}
         );
 
         // Retorna o token e dados do usuário (sem expor a senha)

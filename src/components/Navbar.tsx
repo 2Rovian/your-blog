@@ -9,11 +9,16 @@ import { faUser, faMagnifyingGlass, faGear, faArrowRightFromBracket } from "@for
 import { IoIosCloseCircleOutline } from "react-icons/io";
 import { GoTriangleUp } from "react-icons/go";
 
+import DarkMode from "./DarkMode";
+
 export default function Navbar() {
     const { user, logout } = useAuthStore();
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [isProfileMenuOpen, setIsProfileMenuOpen] = useState<boolean>(false);
     const [inputValue, setInputValue] = useState<string>('');
+    const [isFocused, setIsFocused] = useState<boolean>(false);
+
+    const [users, setUsers] = useState<{ _id: string; username: string }[]>([]); // Estado para armazenar os usuários encontrados
 
     useEffect(() => {
         setIsLoading(false);
@@ -21,25 +26,54 @@ export default function Navbar() {
 
     const menuRef = useRef<HTMLDivElement | null>(null);
     const buttonRef = useRef<HTMLSpanElement | null>(null);
+    const dropdownRef = useRef<HTMLDivElement | null>(null);
+    const inputRef = useRef<HTMLInputElement | null>(null);
 
     useEffect(() => {
         function handleClickOutside(event: MouseEvent) {
             if (
                 menuRef.current && !menuRef.current.contains(event.target as Node) &&
-                buttonRef.current && !buttonRef.current.contains(event.target as Node) 
+                buttonRef.current && !buttonRef.current.contains(event.target as Node)
             ) {
                 setIsProfileMenuOpen(false);
             }
+            if (
+                dropdownRef.current && !dropdownRef.current.contains(event.target as Node) &&
+                inputRef.current && !inputRef.current.contains(event.target as Node)
+            ) {
+                setIsFocused(false);
+            }
         }
-    
+
         document.addEventListener("mousedown", handleClickOutside);
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
         };
     }, []);
 
+    // Função para buscar usuários na API
+    const fetchUsers = async (searchText: string) => {
+        if (!searchText.trim()) {
+            setUsers([]); // Se o campo estiver vazio, esvazia os resultados
+            return;
+        }
+
+        try {
+            const response = await fetch(`/api/users/dropdown?q=${searchText}`);
+            const data = await response.json();
+            setUsers(data.users);
+        } catch (error) {
+            console.error("Erro ao buscar usuários:", error);
+        }
+    };
+
+    // Dispara a busca sempre que o inputValue muda
+    useEffect(() => {
+        fetchUsers(inputValue);
+    }, [inputValue]);
+
     return (
-        <div className="h-[60px]">
+        <div className="h-[60px] fixed w-full mx-auto max-w-[1280px]">
             <div className="flex justify-between items-center size-full main-div border-b">
                 <span className="text-4xl font-bold"
                     style={{ fontFamily: "'Brandmark Sans 2 Color'" }}
@@ -47,23 +81,46 @@ export default function Navbar() {
                     <Link href='/'>WePost</Link>
                 </span>
 
-                {user && (<div className="bg-gray-900 sm:w-[60%] min-w-[250px] max-w-[600px] text-white rounded-3xl flex items-center">
-                    <span className="px-2 ml-1">
-                        <FontAwesomeIcon icon={faMagnifyingGlass} />
-                    </span>
-                    <input type="text" placeholder="Search"
-                        className="py-2 grow bg-transparent outline-none"
-                        value={inputValue}
-                        onChange={(e) => setInputValue(e.target.value)}
-                    />
-                    {inputValue && (
-                        <span className="p-1 mr-2 cursor-pointer rounded-full hover:bg-white/30 ease-in-out duration-300"
-                            onClick={() => setInputValue('')}
-                        >
-                            <IoIosCloseCircleOutline className="size-5" />
+                {user &&
+                    (<div className={`bg-gray-200 dark:bg-gray-900 sm:w-[60%] min-w-[250px] max-w-[600px] relative text-black dark:text-white rounded-3xl flex items-center ${isFocused ? 'outline outline-2 outline-blue-400' : ''}`}>
+                        <span className="px-2 ml-1">
+                            <FontAwesomeIcon icon={faMagnifyingGlass} />
                         </span>
-                    )}
-                </div>)}
+                        <input ref={inputRef} type="text" placeholder="Search"
+                            className="py-2 font-sans grow bg-transparent outline-none"
+                            value={inputValue}
+                            onChange={(e) => setInputValue(e.target.value)}
+                            onFocus={() => setIsFocused(true)}
+                        />
+
+                        {inputValue && (
+                            <span className="p-1 mr-2 cursor-pointer rounded-full hover:bg-white/80 dark:hover:bg-white/30 ease-in-out duration-300"
+                                onClick={() => setInputValue('')}
+                            >
+                                <IoIosCloseCircleOutline className="size-5" />
+                            </span>
+                        )}
+
+                        {inputValue && isFocused && users.length > 0 && (
+                            <div ref={dropdownRef} className="h-fit w-full bg-white dark:bg-gray-900  absolute top-[47px] outline outline-1 outline-gray-400 dark:outline-gray-700 shadow-gray-600 dark:shadow-gray-700 shadow-md rounded-lg flex flex-col overflow-hidden">
+                                {users.map((user) => (
+                                    <div
+                                        key={user._id}
+                                        className="w-full h-[40px] cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800"
+                                        onClick={() => { setInputValue(''); setIsFocused(false) }}
+                                    >
+                                        <Link href={`/user/${user.username}`} className="size-full flex items-center gap-x-2 px-3">
+                                            <span>
+                                                <FontAwesomeIcon icon={faUser} />
+                                            </span>
+                                            <span>{user.username}</span>
+                                        </Link>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+                    </div>)
+                }
 
                 {isLoading ? (
                     <div />
@@ -91,12 +148,14 @@ export default function Navbar() {
                                             </li>
                                         </Link>
 
-                                        <Link href={'/'} className="mx-2">
+                                        <Link href={'/config/'} className="mx-2">
                                             <li className="px-3 gap-x-2 flex items-center hover:bg-white hover:text-gray-900 dark:hover:bg-black dark:hover:text-white hover:rounded-sm ease-in-out duration-150 cursor-pointer">
                                                 <FontAwesomeIcon icon={faGear} className="size-[20px]" />
                                                 <span>Config</span>
                                             </li>
                                         </Link>
+
+                                        <DarkMode />
 
                                         <li className="mx-2 px-3 gap-x-2 flex items-center hover:bg-white hover:text-gray-900 dark:hover:bg-black dark:hover:text-white hover:rounded-sm ease-in-out duration-150 cursor-pointer"
                                             onClick={logout}

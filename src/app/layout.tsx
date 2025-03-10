@@ -1,7 +1,6 @@
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import { Providers } from "./providers";
-import ThemeSwitch from "@/components/ThemeSwitch";
 import Footer from "@/components/Footer";
 
 import '@fortawesome/fontawesome-svg-core/styles.css'
@@ -23,10 +22,11 @@ export default function RootLayout({
         <Providers>
           <div className="responsividade flex flex-col w-full min-h-screen">
             <Navbar />
+            <div className="h-[60px]" />
             <div className="grow main-div">
               {children}
             </div>
-            <ThemeSwitch />
+            
             <Footer />
           </div>
         </Providers>

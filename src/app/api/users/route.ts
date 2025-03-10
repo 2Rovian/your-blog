@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import User from "@/app/models/User";
 import { connectDB } from "@/app/lib/mongodb";
 
+// Busca todos os Users
 export async function GET() {
     try {
         await connectDB();

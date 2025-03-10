@@ -25,7 +25,7 @@ export default async function Home() {
       <p className="mb-5 text-center text-xl font-bold">Principais notícias</p>
       <div className="flex flex-col md:grid grid-cols-2 md:gap-x-3 gap-y-3">
         {data.articles?.map((news, index) => (
-          <div key={index} className="bg-gray-100 dark:bg-black dark:outline dark:outline-1 dark:outline-gray-700 rounded-lg shadow max-h-[400px] px-2 flex justify-between ">
+          <div key={index} className="bg-gray-100 dark:bg-gray-900 dark:outline dark:outline-1 dark:outline-gray-700 rounded-lg shadow max-h-[400px] px-2 flex justify-between ">
             <div className="p-2 flex flex-col justify-between">
               <p className="font-bold">
                 <a href={news.url} target="_blank">

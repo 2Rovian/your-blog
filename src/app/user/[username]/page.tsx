@@ -14,7 +14,6 @@ import { useAuthStore } from '@/store/authStore'
 interface User {
   username: string
   bio?: string
-  postCount?: number
   posts?: Array<{
     title: string
     content: string
@@ -181,10 +180,19 @@ export default function UserProfilePage() {
           <NotPostedYet username={user.username} />
         ) : (
           user.posts?.map((post, index) => (
-            <div key={index}>
-              <h2 className="font-semibold">{post.title}</h2>
-              <h3>{post.content}</h3>
-            </div>
+            <Link key={index}
+              href={`/user/${user.username}/posts/${encodeURIComponent(post.title)}`}
+              passHref
+            >
+              <div className='rounded-sm px-2 py-1 mb-2
+              bg-gray-100 hover:bg-gray-200 duration-200 ease-in-out dark:hover:bg-gray-800 dark:bg-gray-900 dark:outline dark:outline-1 dark:outline-gray-700 shadow
+              '>
+                <h2 className="font-semibold text-lg py-1 dark:text-white">{post.title}</h2>
+                <h3 className='dark:text-gray-300 '>
+                  {post.content.length > 450 ? `${post.content.slice(0, 450)}...` : post.content}
+                </h3>
+              </div>
+            </Link>
           ))
         )}
       </div>

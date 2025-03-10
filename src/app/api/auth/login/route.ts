@@ -26,8 +26,7 @@ export async function POST(req: Request) {
         // Gera um token JWT
         const token = jwt.sign(
             { id: user._id.toString(), username: user.username },
-            process.env.JWT_SECRET as string,
-            { expiresIn: "2h"}
+            process.env.JWT_SECRET as string
         );
 
         // Retorna o token e dados do usuário (sem expor a senha)

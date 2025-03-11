@@ -128,7 +128,6 @@ export default function UserProfilePage() {
           )}
 
           <div className="flex gap-x-2 items-center">
-            {/* Apenas exibe o botão de Criar Post e Add Bio se for o perfil do usuário logado */}
             {isOwnProfile && (
               <>
                 <button className="bg-gray-900 dark:bg-white dark:text-black rounded-sm text-white py-1 w-[130px] my-2">

@@ -9,7 +9,7 @@ export async function GET(
   await connectDB();
 
   try {
-    const { username, title } = params;
+    const { username, title } = await params;
     const decodedTitle = decodeURIComponent(title); // Decodifica o título
 
     // Busca o usuário pelo username

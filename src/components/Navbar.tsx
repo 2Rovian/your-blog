@@ -82,7 +82,7 @@ export default function Navbar() {
                 </span>
 
                 {user &&
-                    (<div className={`bg-gray-200 dark:bg-gray-900 sm:w-[60%] min-w-[250px] max-w-[600px] relative text-black dark:text-white rounded-3xl flex items-center ${isFocused ? 'outline outline-2 outline-blue-400' : ''}`}>
+                    (<div className={`bg-gray-200 dark:bg-gray-900 sm:w-[60%] min-w-[250px] max-w-2xl relative text-black dark:text-white rounded-3xl flex items-center ${isFocused ? 'outline outline-2 outline-blue-400' : ''}`}>
                         <span className="px-2 ml-1">
                             <FontAwesomeIcon icon={faMagnifyingGlass} />
                         </span>

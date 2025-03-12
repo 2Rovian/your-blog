@@ -4,6 +4,7 @@ import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
 import { useAuthStore } from "@/store/authStore";
+import { useRouter } from "next/navigation";
 
 import { useState } from "react"
 export default function LoginFunc() {
@@ -16,7 +17,7 @@ export default function LoginFunc() {
     const [showConfirmPassword, setShowConfirmPassword] = useState<boolean>(false);
 
     const { login } = useAuthStore();
-    
+    const router = useRouter();
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -46,7 +47,7 @@ export default function LoginFunc() {
         }
 
         const url = isMenuLogin ? '/api/auth/login' : '/api/auth/register';
-        const payload = isMenuLogin ? { username, password } : { username, password, confirmPassword };
+        const payload = isMenuLogin ? { username, password } : { username, password };
 
         try {
             const response = await fetch(url, {
@@ -63,11 +64,19 @@ export default function LoginFunc() {
                 return;
             }
 
-            alert(isMenuLogin ? "Login realizado com sucesso!" : "Cadastro realizado com sucesso");
+            // Se for Register
+            if (!isMenuLogin) {
+                alert('Cadastro realizado com sucesso! Faça login para continuar');
+                setIsMenuLogin(true);
+                setUsername('');
+                setPassword('');
+                setConfirmPassword('');
 
-            // Salvar o token no localStorage
-            if (isMenuLogin) {
+            } else {
+                // Salvar o token no localStorage
+                alert("Login realizado com sucesso!")
                 login(data.user, data.token)
+                router.push('/')
             }
 
         } catch (error) {

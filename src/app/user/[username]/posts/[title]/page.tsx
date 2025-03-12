@@ -1,12 +1,16 @@
 'use client';
+import Link from 'next/link';
 
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import LoadingComponent from '../../LoadingComponent';
 
 export default function PostDetail() {
   const { username, title } = useParams<{ username: string; title: string }>();
   const [post, setPost] = useState<{ title: string; content: string } | null>(null);
   const [error, setError] = useState(false);
+
+  const [Loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -18,13 +22,30 @@ export default function PostDetail() {
         setPost(data);
       } catch (error) {
         setError(true);
+      } finally {
+        setTimeout(() => {
+          setLoading(false);
+        }, 1500);
       }
     };
 
     fetchPost();
   }, [username, title]);
 
-  if (error || !post) return <div>Post não encontrado</div>;
+  if (Loading) return <LoadingComponent />;
+  if (error || !post) return <div className="flex justify-center">
+    <div className="mt-32 text-center">
+      <h1 className="font-bold text-3xl">Post não encontrado :/</h1>
+      <Link href={`/user/${username}`}>
+        <button className="bg-black text-white dark:bg-white dark:text-black px-4 py-2 mt-3 rounded-full">
+          Ver perfil do usuário
+        </button>
+      </Link>
+
+    </div>
+  </div>;
+
+  // if (error || !post) return <p className="font-bold text-3xl mt-5 text-center">Post não encontrado :/</p>;
 
   return (
     <div className="mt-5 max-w-2xl mx-auto

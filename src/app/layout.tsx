@@ -8,6 +8,8 @@ import { config } from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css'
 config.autoAddCss = false
 
+import { Toaster } from 'react-hot-toast'
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -26,7 +28,7 @@ export default function RootLayout({
             <div className="grow main-div">
               {children}
             </div>
-            
+            <Toaster position="bottom-right"/>
             <Footer />
           </div>
         </Providers>

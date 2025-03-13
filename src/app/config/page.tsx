@@ -6,6 +6,8 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
 import { useRouter } from "next/navigation";
 
+import toast from "react-hot-toast";
+
 export default function ConfigPage() {
     const [ShowDeletePosts, setShowDeletePosts] = useState<boolean>(false);
     const [ShowDeleteAcc, setShowDeleteAcc] = useState<boolean>(false);
@@ -17,7 +19,7 @@ export default function ConfigPage() {
             const token = useAuthStore.getState().token; // Obtém o token do Zustand
 
             if (!token) {
-                alert("Usuário não autenticado!");
+                toast.error("Usuário não autenticado.");
                 return;
             }
 
@@ -31,14 +33,14 @@ export default function ConfigPage() {
             const data = await response.json();
 
             if (!response.ok) {
-                alert(data.error || "Erro ao deletar posts");
+                toast.error(data.error || "Erro ao deletar posts");
                 return;
             }
 
-            alert("Todos os posts foram deletados com sucesso!");
+            toast.success("Todos os posts foram deletados com sucesso!");
         } catch (error) {
             console.error("Erro ao deletar posts:", error);
-            alert("Erro no servidor ao tentar deletar os posts");
+            toast.error("Erro no servidor ao tentar deletar os posts");
         }
     };
 
@@ -46,7 +48,7 @@ export default function ConfigPage() {
         const token = useAuthStore.getState().token; // token do zustand
 
         if (!token) {
-            alert("Usuário não autenticado!");
+            toast.error("Usuário não autenticado.");
             return;
         }
 
@@ -60,9 +62,9 @@ export default function ConfigPage() {
         const data = await response.json();
 
         if (!response.ok) {
-            alert(data.error || "Erro ao deletar usuário");
+            toast.error(data.error || "Erro ao deletar usuário");
         } else {
-            alert("Usuário deletado com sucesso!");
+            toast.error("Perfil deletado.");
             useAuthStore.getState().logout(); // Desloga o usuário após deletar
             router.push('/');
         }

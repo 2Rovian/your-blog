@@ -6,6 +6,8 @@ import { faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { useAuthStore } from "@/store/authStore";
 import { useRouter } from "next/navigation";
 
+import toast from "react-hot-toast";
+
 import { useState } from "react"
 export default function LoginFunc() {
     const [isMenuLogin, setIsMenuLogin] = useState<boolean>(false);
@@ -30,19 +32,19 @@ export default function LoginFunc() {
 
         // Validação do username
         if (!usernameRegex.test(username)) {
-            alert("O nome de usuário deve ter entre 3 e 10 caracteres e pode conter apenas letras, números, '.' e '_'.");
+            toast.error("O nome de usuário deve ter entre 3 e 10 caracteres e pode conter apenas letras, números, '.' e '_'.");
             return;
         }
 
         // Validação da senha
         if (!passwordRegex.test(password)) {
-            alert("A senha deve ter entre 6 e 30 caracteres e conter pelo menos uma letra maiúscula, uma letra minúscula e um número.");
+            toast.error("A senha deve ter entre 6 e 30 caracteres e conter pelo menos uma letra maiúscula, uma letra minúscula e um número.");
             return;
         }
 
         // verifica se as senhas são compatíveis
         if (!isMenuLogin && password !== confirmPassword) {
-            alert("As senhas não coincidem.");
+            toast.error("As senhas não coincidem.");
             return;
         }
 
@@ -60,13 +62,13 @@ export default function LoginFunc() {
 
             const data = await response.json();
             if (!response.ok) {
-                alert(data.error || "Erro ao processar a requisição");
+                toast.error(data.error || "Erro ao processar a requisição");
                 return;
             }
 
             // Se for Register
             if (!isMenuLogin) {
-                alert('Cadastro realizado com sucesso! Faça login para continuar');
+                toast.success('Cadastro realizado com sucesso! Faça login para continuar');
                 setIsMenuLogin(true);
                 setUsername('');
                 setPassword('');
@@ -74,13 +76,13 @@ export default function LoginFunc() {
 
             } else {
                 // Salvar o token no localStorage
-                alert("Login realizado com sucesso!")
+                toast.success("Login realizado com sucesso!")
                 login(data.user, data.token)
                 router.push('/')
             }
 
         } catch (error) {
-            alert("Erro no servidor. Tente novamente")
+            toast.error("Erro no servidor. Tente novamente")
         }
     }
 

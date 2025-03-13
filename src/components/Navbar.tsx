@@ -135,7 +135,7 @@ export default function Navbar() {
 
                         {isProfileMenuOpen && (
                             <div ref={menuRef}
-                                className="absolute top-full mt-3 right-0 bg-gray-900 dark:bg-white dark:outline dark:outline-1 dark:outline-gray-600 rounded-lg rounded-tr-md text-lg"
+                                className="absolute top-full mt-3 right-0 bg-gray-900 dark:bg-white dark:outline dark:outline-1 dark:outline-gray-600 rounded-lg rounded-tr-md text-lg z-50"
                             >
                                 <div className="relative size-full">
                                     <GoTriangleUp className="absolute right-1 -top-5 size-8 text-gray-900 dark:text-white" />

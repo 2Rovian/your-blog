@@ -22,7 +22,7 @@ export default function ThemeSwitch() {
         onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
         >
             <FontAwesomeIcon icon={resolvedTheme === "dark" ? faMoon : faSun} className="size-[20px]" />
-            <span>{resolvedTheme === "dark" ? "Dark" : "Light"}</span>
+            <span>{resolvedTheme === "dark" ? "Escuro" : "Claro"}</span>
         </li>
     );
 }

@@ -26,3 +26,7 @@ body{
 .div-input-loginPage:focus-within {
   @apply outline-black shadow-md dark:outline-white;
 }
+
+.div-textarea-title{
+  @apply flex w-full items-center outline-gray-300 focus:outline-gray-400 dark:outline-gray-600 dark:focus:outline-gray-400 ease-in-out duration-300 outline outline-1 mb-2 rounded-sm;
+}

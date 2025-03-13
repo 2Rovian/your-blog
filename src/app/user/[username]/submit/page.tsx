@@ -56,8 +56,8 @@ export default function NewPost() {
 
   return (
     <div className="flex justify-center">
-      <form onSubmit={handleSubmit} className="mt-5 flex flex-col w-full max-w-[700px] border-2 border-gray-100 dark:border-gray-800 rounded-xl py-2 px-3 shadow-md dark:shadow-gray-900">
-        <h2 className="text-center text-xl font-bold py-2">Criar Novo Post</h2>
+      <form onSubmit={handleSubmit} className="mt-5 flex flex-col w-full max-w-[700px] border-2 border-gray-300 dark:border-gray-600 rounded-xl py-2 px-3 shadow-md dark:shadow-gray-900">
+        <h2 className="text-center text-xl font-bold pt-1 pb-2">Criar Novo Post</h2>
 
         {title &&
           <div className="flex justify-between mb-1">
@@ -71,7 +71,7 @@ export default function NewPost() {
           value={title}
           onChange={handleChange}
           maxLength={100}
-          className="py-1 w-full px-2 dark:bg-black resize-none outline-gray-300 focus:outline-gray-400 dark:outline-gray-600 dark:focus:outline-gray-400 ease-in-out duration-300 outline outline-1 mb-2 rounded-sm"
+          className="py-1 w-full px-2 dark:bg-black resize-none outline-gray-300 focus:outline-gray-500 dark:outline-gray-600 dark:focus:outline-gray-400 ease-in-out duration-300 outline outline-1 mb-2 rounded-sm"
           rows={1} // Define uma linha mínima
         />
 
@@ -79,10 +79,10 @@ export default function NewPost() {
           placeholder="Escreva seu post aqui..."
           value={content}
           onChange={(e) => setContent(e.target.value)}
-          className='outline-gray-300 w-full outline outline-1 py-1 px-2 rounded-sm resize-none h-[200px] sm:h-[250px] md:h-[300px] dark:outline-gray-600 dark:focus:outline-gray-400 focus:outline-gray-400 ease-in-out duration-300 dark:bg-black'
+          className='outline-gray-300 w-full outline outline-1 py-1 px-2 rounded-sm resize-none h-[200px] sm:h-[250px] md:h-[300px] dark:outline-gray-600 dark:focus:outline-gray-400 focus:outline-gray-500 ease-in-out duration-300 dark:bg-black'
         />
 
-        <div className="flex gap-x-2 justify-end items-center mt-4 mb-2">
+        <div className="flex gap-x-2 justify-end items-center mt-2">
           <button type="button" className="py-2 px-3 transition-colors duration-300 ease-in-out rounded-sm font-medium outline outline-1 "
             onClick={() => setShowDiscardPost(true)}
           >Descartar</button>

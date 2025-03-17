@@ -55,7 +55,7 @@ export default function UserProfilePage() {
 
   const updateBio = async () => {
     try {
-      const response = await fetch('http://localhost:3000/api/bio/post-bio', {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_DOMAIN}api/bio/post-bio`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

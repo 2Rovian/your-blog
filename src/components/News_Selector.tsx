@@ -39,7 +39,6 @@ export default function News_Selector({ API_KEY, BASE_URL }: News_SelectorProps)
         setArticles(data.articles || []);
     };
 
-    // Efeito para fazer a requisição sempre que a categoria mudar
     useEffect(() => {
         fetchNews(categoria);
     }, [categoria]);
@@ -47,19 +46,19 @@ export default function News_Selector({ API_KEY, BASE_URL }: News_SelectorProps)
     return (
         <div className="mt-1">
             <ul className="flex items-center gap-x-2 ">
-                <li className={`px-2 py-1 ${categoria == 'tech' ? "outline-2 bg-black text-white dark:bg-white dark:text-black" : "outline-1"} hover:outline-2 duration-500 ease-in-out cursor-pointer outline rounded-sm`}
+                <li className={`px-2 py-1 ${categoria == 'tech' ? "outline-2 bg-black text-white dark:bg-white dark:text-black" : "outline-1"} hover:outline-2 duration-100 ease-in-out cursor-pointer outline rounded-sm`}
                     onClick={() => setCategoria('tech')}
                 >Tecnologia</li>
-                <li className={`px-2 py-1 ${categoria == 'health' ? "outline-2 bg-black text-white dark:bg-white dark:text-black" : "outline-1"} hover:outline-2 duration-500 ease-in-out cursor-pointer outline rounded-sm`}
+                <li className={`px-2 py-1 ${categoria == 'health' ? "outline-2 bg-black text-white dark:bg-white dark:text-black" : "outline-1"} hover:outline-2 duration-100 ease-in-out cursor-pointer outline rounded-sm`}
                     onClick={() => setCategoria('health')}
                 >Saúde</li>
-                <li className={`px-2 py-1 ${categoria == 'bussines' ? "outline-2 bg-black text-white dark:bg-white dark:text-black" : "outline-1"} hover:outline-2 duration-500 ease-in-out cursor-pointer outline rounded-sm`}
+                <li className={`px-2 py-1 ${categoria == 'bussines' ? "outline-2 bg-black text-white dark:bg-white dark:text-black" : "outline-1"} hover:outline-2 duration-100 ease-in-out cursor-pointer outline rounded-sm`}
                     onClick={() => setCategoria('bussines')}
                 >Negócios</li>
-                <li className={`px-2 py-1 ${categoria == 'entertainment' ? "outline-2 bg-black text-white dark:bg-white dark:text-black" : "outline-1"} hover:outline-2 duration-500 ease-in-out cursor-pointer outline rounded-sm`}
+                <li className={`px-2 py-1 ${categoria == 'entertainment' ? "outline-2 bg-black text-white dark:bg-white dark:text-black" : "outline-1"} hover:outline-2 duration-100 ease-in-out cursor-pointer outline rounded-sm`}
                     onClick={() => setCategoria('entertainment')}
                 >Entretenimento</li>
-                <li className={`px-2 py-1 ${categoria == 'sports' ? "outline-2 bg-black text-white dark:bg-white dark:text-black" : "outline-1"} hover:outline-2 duration-500 ease-in-out cursor-pointer outline rounded-sm hidden sm:block`}
+                <li className={`px-2 py-1 ${categoria == 'sports' ? "outline-2 bg-black text-white dark:bg-white dark:text-black" : "outline-1"} hover:outline-2 duration-100 ease-in-out cursor-pointer outline rounded-sm hidden sm:block`}
                     onClick={() => setCategoria('sports')}
                 >Esportes</li>
             </ul>

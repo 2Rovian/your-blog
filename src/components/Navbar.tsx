@@ -36,6 +36,7 @@ export default function Navbar() {
                 buttonRef.current && !buttonRef.current.contains(event.target as Node)
             ) {
                 setIsProfileMenuOpen(false);
+                setIsFocused(false);
             }
             if (
                 dropdownRef.current && !dropdownRef.current.contains(event.target as Node) &&
@@ -86,11 +87,13 @@ export default function Navbar() {
                         <span className="px-2 ml-1">
                             <FontAwesomeIcon icon={faMagnifyingGlass} />
                         </span>
+
                         <input ref={inputRef} type="text" placeholder="Search"
                             className="py-2 font-sans grow bg-transparent outline-none"
                             value={inputValue}
                             onChange={(e) => setInputValue(e.target.value)}
                             onFocus={() => setIsFocused(true)}
+                            onBlur={() => setIsFocused(false)} 
                         />
 
                         {inputValue && (

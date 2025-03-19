@@ -45,11 +45,9 @@ export default function PostDetail() {
     </div>
   </div>;
 
-  // if (error || !post) return <p className="font-bold text-3xl mt-5 text-center">Post não encontrado :/</p>;
-
   return (
-    <div className="mt-5 max-w-2xl mx-auto
-    rounded-sm px-3 py-2 mb-2 bg-gray-100 duration-200 ease-in-out  dark:bg-gray-900 dark:outline dark:outline-1 dark:outline-gray-700 shadow-md">
+    <div className="mt-5 max-w-5xl mx-auto
+    rounded-sm px-3 py-2 mb-2 bg-gray-100 duration-200 ease-in-out  dark:bg-gray-900 dark:outline-gray-700 shadow-md outline outline-1 outline-gray-500">
       <h1 className="text-xl font-bold">{post.title}</h1>
       <p className="text-base">{post.content}</p>
     </div>
